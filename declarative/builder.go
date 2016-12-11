@@ -13,7 +13,7 @@ import (
 )
 
 import (
-	"github.com/lxn/walk"
+	"github.com/xiangshenb/walk"
 )
 
 var (
