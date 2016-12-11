@@ -35,6 +35,7 @@ type MainWindow struct {
 	MenuItems        []MenuItem
 	ToolBarItems     []MenuItem // Deprecated, use ToolBar instead
 	ToolBar          ToolBar
+	OnMoveWindow     walk.MoveEventHandler
 }
 
 func (mw MainWindow) Create() error {
@@ -106,6 +107,10 @@ func (mw MainWindow) Create() error {
 
 		if mw.OnDropFiles != nil {
 			w.DropFiles().Attach(mw.OnDropFiles)
+		}
+
+		if mw.OnMoveWindow != nil {
+			w.MoveWindow().Attach(mw.OnMoveWindow)
 		}
 
 		if mw.AssignTo != nil {

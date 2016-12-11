@@ -281,6 +281,7 @@ type WindowBase struct {
 	disposables             []Disposable
 	disposingPublisher      EventPublisher
 	dropFilesPublisher      DropFilesEventPublisher
+	moveWindowPublisher     MoveEventPublisher
 	keyDownPublisher        KeyEventPublisher
 	keyPressPublisher       KeyEventPublisher
 	keyUpPublisher          KeyEventPublisher
@@ -835,6 +836,10 @@ func (wb *WindowBase) BringToTop() error {
 	return nil
 }
 
+func (wb *WindowBase) SetTopShow(x, y, w, h int32) {
+	win.SetWindowPos(wb.hWnd, win.HWND_TOPMOST, x, y, w, h, win.SWP_FRAMECHANGED|win.SWP_NOOWNERZORDER)
+}
+
 // Bounds returns the outer bounding box Rectangle of the *WindowBase, including
 // decorations.
 //
@@ -1198,6 +1203,10 @@ func (wb *WindowBase) DropFiles() *DropFilesEvent {
 	return wb.dropFilesPublisher.Event(wb.hWnd)
 }
 
+func (wb *WindowBase) MoveWindow() *MoveEvent {
+	return wb.moveWindowPublisher.Event()
+}
+
 // MouseDown returns a *MouseEvent that you can attach to for handling
 // mouse down events for the *WindowBase.
 func (wb *WindowBase) MouseDown() *MouseEvent {
@@ -1379,6 +1388,8 @@ func (wb *WindowBase) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr)
 	window := windowFromHandle(hwnd)
 
 	switch msg {
+	case win.WM_MOVING:
+		wb.moveWindowPublisher.Publish()
 	case win.WM_ERASEBKGND:
 		if wb.background == nil {
 			break
