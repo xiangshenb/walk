@@ -35,7 +35,8 @@ type MainWindow struct {
 	MenuItems        []MenuItem
 	ToolBarItems     []MenuItem // Deprecated, use ToolBar instead
 	ToolBar          ToolBar
-	OnMoveWindow     walk.MoveEventHandler
+	OnMoveWindow     walk.MoveEventHandler    //my
+	OnKeyDownMy      walk.KeyDownEventHandler //my
 }
 
 func (mw MainWindow) Create() error {
@@ -111,6 +112,10 @@ func (mw MainWindow) Create() error {
 
 		if mw.OnMoveWindow != nil {
 			w.MoveWindow().Attach(mw.OnMoveWindow)
+		}
+
+		if mw.OnKeyDownMy != nil {
+			//w.KeyDownMy().Attach(mw.OnKeyDownMy)
 		}
 
 		if mw.AssignTo != nil {
