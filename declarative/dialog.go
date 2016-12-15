@@ -34,8 +34,7 @@ type Dialog struct {
 	DefaultButton    **walk.PushButton
 	CancelButton     **walk.PushButton
 	FixedSize        bool
-	OnMoveWindow     walk.MoveEventHandler    //my
-	OnKeyDownMy      walk.KeyDownEventHandler //my
+	OnMoveWindow     walk.MoveEventHandler //my
 }
 
 func (d Dialog) Create(owner walk.Form) error {
@@ -112,6 +111,10 @@ func (d Dialog) Create(owner walk.Form) error {
 			if err := w.SetCancelButton(*d.CancelButton); err != nil {
 				return err
 			}
+		}
+		
+		if d.OnMoveWindow != nil {
+			w.MoveWindow().Attach(d.OnMoveWindow)
 		}
 
 		if d.OnKeyDownMy != nil {

@@ -35,8 +35,7 @@ type MainWindow struct {
 	MenuItems        []MenuItem
 	ToolBarItems     []MenuItem // Deprecated, use ToolBar instead
 	ToolBar          ToolBar
-	OnMoveWindow     walk.MoveEventHandler    //my
-	OnKeyDownMy      walk.KeyDownEventHandler //my
+	OnMoveWindow     walk.MoveEventHandler //my
 }
 
 func (mw MainWindow) Create() error {
