@@ -13,6 +13,7 @@ import (
 type Label struct {
 	WidgetBase
 	textChangedPublisher EventPublisher
+	TextColor            Color
 }
 
 func NewLabel(parent Container) (*Label, error) {

@@ -34,6 +34,7 @@ type Label struct {
 	OnMouseUp          walk.MouseEventHandler
 	OnSizeChanged      walk.EventHandler
 	Text               Property
+	TextColor          walk.Color
 }
 
 func (l Label) Create(builder *Builder) error {
